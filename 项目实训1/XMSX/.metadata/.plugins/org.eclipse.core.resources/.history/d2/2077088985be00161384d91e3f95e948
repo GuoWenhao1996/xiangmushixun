@@ -1,0 +1,15 @@
+package com.null_6th_gwh.ball.view;
+
+import javax.swing.JFrame;
+
+public class GameFrame extends JFrame{
+	public GameFrame(){
+		init();
+	}
+	private void init(){
+		this.setTitle("Ð¡Çò");
+		this.setSize(300, 600);
+		this.setResizable(false);
+	}
+
+}

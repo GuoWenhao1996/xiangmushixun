@@ -1,0 +1,16 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GameStatus {
+	public void paint(Graphics g){
+		//背景
+		BufferedImage bg = R.lode("bg.png");
+		g.drawImage(bg, 0, 0, null);
+
+				
+	}
+}

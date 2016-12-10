@@ -1,0 +1,19 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GamePipes {
+	BufferedImage pipe;
+	int pipe_x=0;
+	public GamePipes(){
+		pipe = R.lode("column.png");
+		pipe_x=0;
+	}
+	
+	public void paint(Graphics g){
+		g.drawImage(pipe, pipe_x, 0, null);		
+	}
+}

@@ -1,0 +1,75 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GamePanel extends JPanel implements Runnable {
+	private Thread gameThread = null;
+	
+	int ground_x = 0;
+	int pipe_x = 320;
+	int bird_y=0;
+	
+	private GameBird bird;
+	private GameBackground background;
+	private GamePipes pipes;
+	private GameStatus status;
+
+	public GamePanel() {
+		bird = new GameBird();
+		background = new GameBackground();
+		pipes = new GamePipes();
+		status = new GameStatus();
+		init();
+	}
+
+	private void init() {
+		gameThread = new Thread(this);
+		gameThread.start();
+
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+			try {
+				repaint();
+				Thread.sleep(1000 / 30);
+				// 135=27*5   27为单位距离
+				if (ground_x == -135)
+					ground_x = 0;
+				ground_x--;
+				//58为管子的横像素
+				if (pipe_x == -58)
+					pipe_x = 320;
+				pipe_x--;
+				if(bird_y>365)
+					bird_y=bird_y-4;
+				else
+					bird_y=bird_y+2;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		// 1.绘制背景
+		background.paint(g, ground_x);
+		// 2.绘制管子
+		pipes.paint(g, pipe_x);
+		// 3.绘制鸟
+		bird.paint(g,bird_y);
+		// 4.绘制游戏状态
+		status.paint(g);
+
+	}
+
+}

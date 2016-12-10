@@ -1,0 +1,85 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GamePanel extends JPanel implements Runnable {
+	private Thread gameThread = null;
+	int x = 140, y = 10;
+	int ground_x=0;
+	int pipe_x=320;
+	boolean b = true;// true下 false上
+	
+	private GameBird bird;
+	private GameBackground background;
+	private GamePipes pipes;
+	private GameStatus status;
+
+	public GamePanel() {
+		bird=new GameBird();
+		background=new GameBackground();
+		pipes=new GamePipes();
+		status=new GameStatus();
+		init();
+	}
+
+	private void init() {
+		gameThread = new Thread(this);
+		gameThread.start();
+		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+			try {
+				repaint();
+				Thread.sleep(1000 / 30);
+				//135=27*5
+				if(ground_x==-135)
+					ground_x=0;
+				ground_x--;
+				if (b)
+					// y=y+5;//匀速
+					y = y * 2;// 自由落体
+				else
+					y = y - 5;
+				if (y >= this.getHeight() - 20) {
+					b = false;
+				}
+				if (y < 0) {
+					b = true;
+					y = 5;
+				}
+				// 输出状态及纵坐标
+				System.err.println(ground_x);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		//1.绘制背景
+		background.paint(g,ground_x);
+		//2.绘制管子
+		pipes.paint(g,pipe_x);
+		//3.绘制鸟
+		bird.paint(g);
+		//4.绘制游戏状态
+		status.paint(g);
+
+
+				
+//		g.setColor(Color.yellow);
+//		g.fillOval(x, y, 20, 20);
+	}
+
+}

@@ -1,0 +1,23 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GameBackground {
+	BufferedImage bg = R.lode("bg.png");
+	BufferedImage ground = R.lode("ground.png");
+
+	
+	public GameBackground(){
+		
+	}
+	
+	public void paint(Graphics g,int ground_x){
+		//背景
+		g.drawImage(bg, 0, 0, null);
+		//草地
+		g.drawImage(ground, ground_x,400, null);
+	}
+}
