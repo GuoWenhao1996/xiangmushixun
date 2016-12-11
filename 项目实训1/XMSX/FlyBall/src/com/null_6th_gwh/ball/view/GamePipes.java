@@ -6,47 +6,36 @@ import java.awt.image.BufferedImage;
 import com.null_6th_gwh.ball.util.R;
 
 public class GamePipes {
-	BufferedImage uppipe;
-	BufferedImage downpipe;
-	int x = 0;
-	int upy = 0;
-	int downy = 0;
-	int distance = 0;
-	GamePanel gp;
-
+	public Pipe a;
+	public Pipe b;
+	private int between=150;
 	public GamePipes(GamePanel gp) {
-		this.gp = gp;
-		distance = 100;
-		uppipe = R.lode("up.png");
-		downpipe = R.lode("down.png");
-		reset();
+		a=new Pipe(gp);
+		//设置a水管的位置为天空的宽度（屏幕右边）
+		a.x=gp.getSkyWeigh()+100;
+		b=new Pipe(gp);
+		//设置b水管的位置距离a为between
+		b.x=a.x+a.w+between;
 	}
-
-	private void reset() {
-		//distance--;
-		x = gp.getSkyWeigh();
-		int temp = MyRandom(10, gp.getSkyHeigh() - distance - 10);
-		upy = temp - uppipe.getHeight();
-		downy = temp + distance;
-		System.out.println(distance + "   " + temp + "   " + upy + " " + downy);
-
+	public void reset(GamePanel gp) {
+		 a.x = gp.getSkyWeigh()+100;
+		 b.x=a.x+a.w+between;
 	}
-
-	/*
-	 * 返回a和b之间的随机数
-	 * 
-	 */
-	private static int MyRandom(int a, int b) {
-		return ((int) (Math.random() * Math.abs(a - b))) + Math.min(a, b);
-	}
-
 	public void paint(Graphics g) {
-		// 管子的横像素
-		if (x <= -uppipe.getWidth())
-			reset();
-		//x = x - 10;
-		x--;
-		g.drawImage(uppipe, x, upy, null);
-		g.drawImage(downpipe, x, downy, null);
+		a.paint(g);
+		//管道已移动到屏幕外，重置管道
+		if(a.x<-a.w){//a.x+a.w<0
+			//a的位置变为距离b为bettween
+			a.x=b.x+b.w+between;
+			a.randomY();
+		}		
+		b.paint(g);
+		
+		//管道已经移动到屏幕外,重置管道位置
+		if(b.x<-b.w){
+			//b跟在a后面
+			b.x=a.x+a.w+between;
+			b.randomY();
+		}
 	}
 }

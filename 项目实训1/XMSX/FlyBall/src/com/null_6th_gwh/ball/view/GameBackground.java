@@ -7,10 +7,10 @@ import com.null_6th_gwh.ball.util.R;
 
 public class GameBackground {
 	
-	BufferedImage bg;
-	BufferedImage ground;
-	int ground_x=0;
-	int ground_y=0;
+	private BufferedImage bg;
+	private BufferedImage ground;
+	private int ground_x=0;
+	private int ground_y=0;
 	
 	public GameBackground(){
 		bg = R.lode("bg.png");

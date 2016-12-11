@@ -1,0 +1,35 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GamePipes {
+	public Pipe a;
+	public Pipe b;
+	private int between=150;
+	public GamePipes(GamePanel gp) {
+		a=new Pipe(gp);
+		//设置a水管的位置为天空的宽度（屏幕右边）
+		a.x=gp.getSkyWeigh()+200;
+		b=new Pipe(gp);
+		//设置b水管的位置距离a为between
+		b.x=a.x+between;
+	}
+	public void reset() {
+		 a.x = 0;
+			b.x=a.x+between;
+	}
+	public void paint(Graphics g) {
+		a.paint(g);
+		//管道已移动到屏幕外，重置管道
+		if(a.x<-a.w){//a.x+a.w<0
+			//a的位置变为距离b为bettween
+			a.x=b.x+b.w+between;
+			a.MyRandom(a, b);
+		}		
+		System.out.println(a.x+"  "+b.x);
+		
+	}
+}

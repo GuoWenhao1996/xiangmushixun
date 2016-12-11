@@ -6,9 +6,21 @@ import java.awt.image.BufferedImage;
 import com.null_6th_gwh.ball.util.R;
 
 public class GameStatus {
+	private BufferedImage start;
+	private BufferedImage over;
+
+	public GameStatus() {
+		start = R.lode("start.png");
+		over = R.lode("gameover.png");
+	}
+
 	public void paint(Graphics g) {
-		// 开始
-		BufferedImage start = R.lode("start.png");
-		g.drawImage(start, 0, 0, null);
+		if (GamePanel.STATU == GamePanel.READY) {
+			// 开始
+			g.drawImage(start, 0, 0, null);
+		} else if (GamePanel.STATU == GamePanel.GAMEOVER) {
+			// 游戏结束
+			g.drawImage(over, 0, 0, null);
+		}
 	}
 }

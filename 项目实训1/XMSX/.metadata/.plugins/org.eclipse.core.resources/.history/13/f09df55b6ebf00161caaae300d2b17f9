@@ -1,0 +1,20 @@
+package com.null_6th_gwh.ball.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null_6th_gwh.ball.util.R;
+
+public class GamePipes {
+	private Pipe a;
+	private Pipe b;
+	private int between=0;
+	public GamePipes(GamePanel gp) {
+		a=new Pipe(gp);
+		b=new Pipe(gp);
+		between=150;
+	}
+	public void paint(Graphics g) {
+
+	}
+}
