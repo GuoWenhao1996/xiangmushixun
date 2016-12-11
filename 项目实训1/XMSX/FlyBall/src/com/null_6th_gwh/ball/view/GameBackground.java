@@ -18,14 +18,24 @@ public class GameBackground {
 		ground_x=0;
 		ground_y=bg.getHeight()-ground.getHeight();
 	}
+	public int getSkyHeigh() {
+		return bg.getHeight()-ground.getHeight();
+	}
+	public int getSkyWeigh() {
+		return bg.getWidth();
+	}
 	
-	public void paint(Graphics g){
+	
+	public void paintsky(Graphics g){
+		//背景
+		g.drawImage(bg, 0, 0, null);
+	}
+	
+	public void paintground(Graphics g){
 		// 28为单位距离,5个单位距离重绘一次草地
 		if (ground_x == -140)
 			ground_x = 0;
 		ground_x--;
-		//背景
-		g.drawImage(bg, 0, 0, null);
 		//草地
 		g.drawImage(ground, ground_x,ground_y, null);
 	}
