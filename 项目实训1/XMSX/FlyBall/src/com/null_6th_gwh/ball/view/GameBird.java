@@ -63,17 +63,25 @@ public class GameBird {
 	}
 
 	public boolean isHidePipe(Pipe a, Pipe b) {
-		if (bird_x + birds[0].getWidth() > a.x && bird_y > a.temp && bird_y > a.temp + a.distance)
+		if (bird_x + birds[0].getWidth() > a.x && bird_x < a.x + a.w
+				&& (bird_y < a.temp || bird_y + birds[0].getHeight() > a.temp + a.distance))
 			return true;
-		if (bird_x + birds[0].getWidth() > b.x && bird_y > b.temp && bird_y > b.temp + b.distance)
+		if (bird_x + birds[0].getWidth() > b.x && bird_x < b.x + b.w
+				&& (bird_y < b.temp || bird_y + birds[0].getHeight() > b.temp + b.distance))
 			return true;
+
 		return false;
 	}
 
 	public boolean isHideGround() {
-		if (bird_y > 400 - w) {
+		if (bird_y + h > 400) {
 			return true;
 		} else
 			return false;
+	}
+
+	/** 判断鸟是否通过柱子 */
+	public boolean pass(Pipe a, Pipe b) {
+		return a.x + a.w == bird_x || b.x + b.w == bird_x;
 	}
 }
