@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private GameWorms worms;
 	private GameStatus status;
 	public static int score=0;
-	Music mu= new Music("bg.wav");
+	Music mu= new Music("bggameover.wav");
 	public static final int READY = 0;
 	public static final int PLAYING = 1;
 	public static final int GAMEOVER = -1;
@@ -51,7 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public void mouseEvent() {
 		if (STATU == READY) {
 			STATU = PLAYING;
-			mu=new Music("bg.wav");
+			mu.stop();
+			mu=new Music("bgplaying.wav");
 			mu.start();
 		} else if (STATU == GAMEOVER) {
 			STATU = READY;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private void init() {
 		gameThread = new Thread(this);
 		gameThread.start();
+		mu.start();
 	}
 
 	@Override
@@ -89,14 +91,20 @@ public class GamePanel extends JPanel implements Runnable {
 				new Music("de.wav").start();
 				STATU = GAMEOVER;
 				mu.stop();
+				mu=new Music("bggameover.wav");
+				mu.start();
 			}
 			if(score<0){
 				new Music("de.wav").start();
 				STATU = GAMEOVER;
 				mu.stop();
+				mu=new Music("bggameover.wav");
+				mu.start();
 			}
-			if(bird.eat(worms.a,worms.b))
+			if(bird.eat(worms.a,worms.b)){
+				new Music("eat.wav").start();
 				score++;
+			}
 			// 2.绘制虫子
 			worms.paint(g);
 			//绘制分数
