@@ -24,7 +24,6 @@
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="com.null_6th_gwh.ball.view.GamePanel"/>
 <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
-<fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="com.null_6th_gwh.ball.util.Music"/>
 <fullyQualifiedTypeName name="com.null_6th_gwh.ball.view.Pipe"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
@@ -32,4 +31,5 @@
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.null6th.BirdEatWorms.view.GamePanel"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
 </qualifiedTypeNameHistroy>

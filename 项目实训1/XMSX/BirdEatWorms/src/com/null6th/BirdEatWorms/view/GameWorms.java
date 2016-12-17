@@ -3,6 +3,7 @@ package com.null6th.BirdEatWorms.view;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.null6th.BirdEatWorms.util.Music;
 import com.null6th.BirdEatWorms.util.R;
 
 public class GameWorms {
@@ -29,6 +30,7 @@ public class GameWorms {
 		if(a.x<-a.w){//a.x+a.w<0
 			//减1条命
 			GamePanel.life--;
+			new Music("de.wav").start();
 			//a的位置变为距离b为between
 			a.x=b.x+b.w+2*between+10;
 			a.randomY();
@@ -39,6 +41,7 @@ public class GameWorms {
 		if(b.x<-b.w){
 			//减1条命
 			GamePanel.life--;
+			new Music("de.wav").start();
 			//b跟在a后面
 			b.x=a.x+a.w+2*between;
 			b.randomY();

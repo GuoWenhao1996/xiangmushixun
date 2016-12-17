@@ -56,7 +56,7 @@ public class Worm {
 		}
 		if(speed<GamePanel.score/5)
 			speed=GamePanel.score/5;
-		System.out.println(speed);
+		//System.out.println(speed);
 		x=x-speed;
 		x--;
 		g.drawImage(Worm, x, y, null);

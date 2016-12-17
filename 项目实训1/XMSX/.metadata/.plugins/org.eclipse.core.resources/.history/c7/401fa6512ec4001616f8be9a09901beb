@@ -1,0 +1,143 @@
+package com.null6th.BirdEatWorms.view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.lang.Thread.State;
+import javax.swing.JPanel;
+
+import com.null6th.BirdEatWorms.util.Music;
+
+public class GamePanel extends JPanel implements Runnable {
+	private Thread gameThread = null;
+	private GameBird bird;
+	private GameBackground background;
+	private GameWorms worms;
+	private GameStatus status;
+	public static int life = 0;
+	private String xuetiao = "";
+	public static int score = 0;
+	Music mu = new Music("bggameover.wav");
+	public static final int READY = 0;
+	public static final int PLAYING = 1;
+	public static final int GAMEOVER = -1;
+	public static int STATU = 0;
+
+	public int getSkyHeigh() {
+		return background.getSkyHeigh();
+	}
+
+	public int getSkyWeigh() {
+		return background.getSkyWeigh();
+	}
+
+	public GamePanel() {
+		bird = new GameBird();
+		background = new GameBackground();
+		worms = new GameWorms(this);
+		status = new GameStatus();
+		life = 3;
+		score = 0;
+		// 监听点击事件
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseEvent();
+			}
+		});
+		init();
+	}
+
+	public void mouseEvent() {
+		if (STATU == READY) {
+			STATU = PLAYING;
+			mu.stop();
+			mu = new Music("bgplaying"+((int)Math.random()*10)%2+".wav");
+			while(true){
+				//System.out.println("bgplaying"+((int)Math.random()*10)%2+".wav");
+				System.out.println(Math.random());
+			}
+			//mu.start();
+		} else if (STATU == GAMEOVER) {
+			STATU = READY;
+			bird.reset();
+			worms.reset(this);
+			life = 3;
+			score = 0;
+		} else
+			bird.Fly();
+	}
+
+	private void init() {
+		gameThread = new Thread(this);
+		gameThread.start();
+		mu.start();
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+			try {
+				repaint();
+				Thread.sleep(1000 / 60);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		// 1.绘制背景
+		background.paintsky(g);
+		if (STATU == PLAYING) {
+			if (bird.isHideGround()) {
+				life--;
+				new Music("de.wav").start();
+				bird.reset();
+			}
+			if (life < 1) {
+				new Music("de.wav").start();
+				STATU = GAMEOVER;
+				mu.stop();
+				mu = new Music("bggameover.wav");
+				mu.start();
+			}
+			if (bird.eat(worms.a, worms.b)) {
+				new Music("eat.wav").start();
+				score++;
+				if (score % 3 == 0)
+					life++;
+			}
+			// 绘制生命
+			Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font1);
+			g.setColor(Color.PINK);
+			if (life < 9) {
+				xuetiao = "";
+				for (int i = 0; i < life; i++)
+					xuetiao = xuetiao + "❤";
+				g.drawString("生命" + xuetiao, 10, 50);
+			} else
+				g.drawString("生命❤×" + life, 10, 50);
+			// 绘制分数
+			Font font2 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font2);
+			g.setColor(Color.ORANGE);
+			g.drawString("得分：" + score, 10, 100);
+			// 2.绘制虫子
+			worms.paint(g);
+			// 3.绘制草地
+			background.paintground(g);
+			// 4.绘制鸟
+			bird.paint(g);
+
+		}
+		// 5.绘制游戏状态
+		status.paint(g);
+	}
+}
