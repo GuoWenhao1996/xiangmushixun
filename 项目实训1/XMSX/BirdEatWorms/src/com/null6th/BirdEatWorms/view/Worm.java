@@ -13,12 +13,16 @@ public class Worm {
 	public int h = 0;
 	private GamePanel gp;
 	public int temp;
+	public int speed=0;
+	private long lasttime;// 上次修改速度的时间
+
 
 	public Worm(GamePanel gp) {
 		this.gp = gp;
 		Worm = R.lode("worm.png");
 		w = Worm.getWidth();
 		h = Worm.getHeight();
+		speed=0;
 		reset();
 	}
 
@@ -45,8 +49,17 @@ public class Worm {
 
 	public void paint(Graphics g) {
 		//x = x - 10;
-		x=x-GamePanel.score/5;
+		//if(GamePanel.score/5==1)
+		if (System.currentTimeMillis() - lasttime > 10000) {
+			lasttime = System.currentTimeMillis();
+			speed++;
+		}
+		if(speed<GamePanel.score/5)
+			speed=GamePanel.score/5;
+		System.out.println(speed);
+		x=x-speed;
 		x--;
 		g.drawImage(Worm, x, y, null);
 	}
+	
 }

@@ -1,0 +1,47 @@
+package com.null6th.BirdEatWorms.view;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.null6th.BirdEatWorms.util.R;
+
+public class GameWorms {
+	public Worm a;
+	public Worm b;
+	private int between=150;
+	public GameWorms(GamePanel gp) {
+		a=new Worm(gp);
+		//设置a虫子的位置为天空的宽度（屏幕右边）
+		a.x=gp.getSkyWeigh()+100;
+		b=new Worm(gp);
+		//设置b虫子的位置距离a为between
+		b.x=a.x+a.w+between;
+	}
+	public void reset(GamePanel gp) {
+		 a.x = gp.getSkyWeigh()+100;
+		 b.x=a.x+a.w+between;
+		 a.speed=0;
+		 b.speed=0;
+	}
+	public void paint(Graphics g) {
+		a.paint(g);
+		//虫子已移动到屏幕外，重置虫子
+		if(a.x<-a.w){//a.x+a.w<0
+			//减1条命
+			//GamePanel.life--;
+			//a的位置变为距离b为between
+			a.x=b.x+b.w+2*between+10;
+			a.randomY();
+		}		
+		b.paint(g);
+		
+		//虫子已经移动到屏幕外,重置虫子位置
+		if(b.x<-b.w){
+			//减1条命
+			//GamePanel.life--;
+			//b跟在a后面
+			b.x=a.x+a.w+2*between;
+			b.randomY();
+		}
+	}
+}

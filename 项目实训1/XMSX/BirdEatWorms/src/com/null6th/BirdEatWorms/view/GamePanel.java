@@ -17,8 +17,10 @@ public class GamePanel extends JPanel implements Runnable {
 	private GameBackground background;
 	private GameWorms worms;
 	private GameStatus status;
-	public static int score=0;
-	Music mu= new Music("bggameover.wav");
+	public static int life = 0;
+	private String xuetiao = "";
+	public static int score = 0;
+	Music mu = new Music("bggameover.wav");
 	public static final int READY = 0;
 	public static final int PLAYING = 1;
 	public static final int GAMEOVER = -1;
@@ -37,7 +39,8 @@ public class GamePanel extends JPanel implements Runnable {
 		background = new GameBackground();
 		worms = new GameWorms(this);
 		status = new GameStatus();
-		score=0;
+		life = 3;
+		score = 0;
 		// 监听点击事件
 		this.addMouseListener(new MouseAdapter() {
 			@Override
@@ -52,13 +55,14 @@ public class GamePanel extends JPanel implements Runnable {
 		if (STATU == READY) {
 			STATU = PLAYING;
 			mu.stop();
-			mu=new Music("bgplaying.wav");
+			mu = new Music("bgplaying.wav");
 			mu.start();
 		} else if (STATU == GAMEOVER) {
 			STATU = READY;
 			bird.reset();
 			worms.reset(this);
-			score=0;
+			life = 3;
+			score = 0;
 		} else
 			bird.Fly();
 	}
@@ -88,31 +92,41 @@ public class GamePanel extends JPanel implements Runnable {
 		background.paintsky(g);
 		if (STATU == PLAYING) {
 			if (bird.isHideGround()) {
+				life--;
+				new Music("de.wav").start();
+				bird.reset();
+			}
+			if (life < 1) {
 				new Music("de.wav").start();
 				STATU = GAMEOVER;
 				mu.stop();
-				mu=new Music("bggameover.wav");
+				mu = new Music("bggameover.wav");
 				mu.start();
 			}
-			if(score<0){
-				new Music("de.wav").start();
-				STATU = GAMEOVER;
-				mu.stop();
-				mu=new Music("bggameover.wav");
-				mu.start();
-			}
-			if(bird.eat(worms.a,worms.b)){
+			if (bird.eat(worms.a, worms.b)) {
 				new Music("eat.wav").start();
 				score++;
+				if (score % 3 == 0)
+					life++;
 			}
+			// 绘制生命
+			Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font1);
+			g.setColor(Color.PINK);
+			if (life < 9) {
+				xuetiao = "";
+				for (int i = 0; i < life; i++)
+					xuetiao = xuetiao + "❤";
+				g.drawString("生命" + xuetiao, 10, 50);
+			} else
+				g.drawString("生命❤×" + life, 10, 50);
+			// 绘制分数
+			Font font2 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font2);
+			g.setColor(Color.ORANGE);
+			g.drawString("得分：" + score, 10, 100);
 			// 2.绘制虫子
 			worms.paint(g);
-			//绘制分数
-			Font font = new Font(Font.MONOSPACED, Font.BOLD, 30);
-			g.setFont(font);
-			g.setColor(Color.ORANGE);
-			g.drawString("得分：" + score , 30, 50);
-
 			// 3.绘制草地
 			background.paintground(g);
 			// 4.绘制鸟

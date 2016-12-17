@@ -20,13 +20,15 @@ public class GameWorms {
 	public void reset(GamePanel gp) {
 		 a.x = gp.getSkyWeigh()+100;
 		 b.x=a.x+a.w+between;
+		 a.speed=0;
+		 b.speed=0;
 	}
 	public void paint(Graphics g) {
 		a.paint(g);
 		//虫子已移动到屏幕外，重置虫子
 		if(a.x<-a.w){//a.x+a.w<0
-			//减1分
-			GamePanel.score--;
+			//减1条命
+			GamePanel.life--;
 			//a的位置变为距离b为between
 			a.x=b.x+b.w+2*between+10;
 			a.randomY();
@@ -35,8 +37,8 @@ public class GameWorms {
 		
 		//虫子已经移动到屏幕外,重置虫子位置
 		if(b.x<-b.w){
-			//减1分
-			GamePanel.score--;
+			//减1条命
+			GamePanel.life--;
 			//b跟在a后面
 			b.x=a.x+a.w+2*between;
 			b.randomY();

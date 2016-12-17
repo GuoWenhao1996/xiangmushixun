@@ -1,5 +1,7 @@
 package com.null6th.BirdEatWorms.view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -18,9 +20,20 @@ public class GameStatus {
 		if (GamePanel.STATU == GamePanel.READY) {
 			// 开始
 			g.drawImage(start, 0, 0, null);
+			// 绘制生命
+			Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font1);
+			g.setColor(Color.PINK);
+			g.drawString("生命❤❤❤", 75, 130);
+
 		} else if (GamePanel.STATU == GamePanel.GAMEOVER) {
 			// 游戏结束
 			g.drawImage(over, 0, 0, null);
+			// 绘制分数
+			Font font2 = new Font(Font.MONOSPACED, Font.BOLD, 30);
+			g.setFont(font2);
+			g.setColor(Color.ORANGE);
+			g.drawString("最终得分：" + GamePanel.score, 65, 100);
 		}
 	}
 }
