@@ -8,7 +8,8 @@ import com.null6th.BirdEatWorms.util.Music;
 import com.null6th.BirdEatWorms.util.R;
 
 public class GameBird {
-	private BufferedImage[] birds = new BufferedImage[3];
+	private GamePanel gp;
+	private BufferedImage[] birds = new BufferedImage[2];
 	private int bird_index = 0;
 	private int bird_x = 0;
 	private int bird_y = 0;
@@ -22,30 +23,31 @@ public class GameBird {
 	 * 
 	 */
 
-	public GameBird() {
+	public GameBird(GamePanel gp) {
+		this.gp = gp;
 		birds[0] = R.lode("0.png");
 		birds[1] = R.lode("1.png");
-		birds[2] = R.lode("2.png");
+		//birds[2] = R.lode("2.png");
 		w = birds[0].getWidth();
 		h = birds[0].getHeight();
-		bird_x = 50 - birds[0].getWidth() / 2;
+		bird_x = 100 - birds[0].getWidth() / 2;
 		bird_y = 0;
 		height = 0.5;
 		lasttime = System.currentTimeMillis();
 	}
 
 	public void Fly() {
-		height = -3.5;
+		height = -5.5;
 		angle = Math.atan(height / 10);
 		new Music("fei.wav").start();
 	}
 
 	public void paint(Graphics g) {
 		bird_y = (int) (bird_y + height);
-		if (System.currentTimeMillis() - lasttime > 120) {
-			height = height + 1;
+		if (System.currentTimeMillis() - lasttime > 240) {
+			height = height + 2;
 			bird_index++;
-			if (bird_index == 3) {
+			if (bird_index == 2) {
 				bird_index = 0;
 			}
 			lasttime = System.currentTimeMillis();
@@ -63,7 +65,7 @@ public class GameBird {
 	}
 
 	public boolean isHideGround() {
-		if (bird_y + h > 400) {
+		if (bird_y +h/2>gp.getSkyHeigh() ) {
 			return true;
 		} else
 			return false;

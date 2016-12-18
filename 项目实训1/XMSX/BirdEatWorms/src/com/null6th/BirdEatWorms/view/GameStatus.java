@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 import com.null6th.BirdEatWorms.util.R;
 
 public class GameStatus {
+	private GamePanel gp;
 	private BufferedImage start;
 	private BufferedImage over;
 
-	public GameStatus() {
+	public GameStatus(GamePanel gp) {
+		this.gp = gp;
 		start = R.lode("start.png");
 		over = R.lode("gameover.png");
 	}
@@ -19,21 +21,21 @@ public class GameStatus {
 	public void paint(Graphics g) {
 		if (GamePanel.STATU == GamePanel.READY) {
 			// 开始
-			g.drawImage(start, 0, 0, null);
+			g.drawImage(start, (gp.getWidth()-start.getWidth())/2, (gp.getHeight()-start.getHeight())/2, null);
 			// 绘制生命
 			Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 30);
 			g.setFont(font1);
-			g.setColor(Color.PINK);
-			g.drawString("生命❤❤❤", 75, 130);
+			g.setColor(Color.RED);
+			g.drawString("生命❤❤❤", (gp.getWidth()-start.getWidth())/2+10,(gp.getHeight()-start.getHeight())/2-10);
 
 		} else if (GamePanel.STATU == GamePanel.GAMEOVER) {
 			// 游戏结束
-			g.drawImage(over, 0, 0, null);
+			g.drawImage(over,(gp.getWidth()-over.getWidth())/2,(gp.getHeight()-over.getHeight())/2, null);
 			// 绘制分数
 			Font font2 = new Font(Font.MONOSPACED, Font.BOLD, 30);
 			g.setFont(font2);
-			g.setColor(Color.ORANGE);
-			g.drawString("最终得分：" + GamePanel.score, 65, 100);
+			g.setColor(Color.YELLOW);
+			g.drawString("最终得分：" + GamePanel.score, (gp.getWidth()-over.getWidth())/2, (gp.getHeight()-over.getHeight())/2);
 		}
 	}
 }

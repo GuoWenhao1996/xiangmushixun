@@ -8,8 +8,8 @@ public class GameFrame extends JFrame {
 	}
 
 	private void init() {
-		this.setTitle("小鸟吃虫子");
-		this.setSize(320, 480);
+		this.setTitle("老鹰吃小鸟");
+		this.setSize(1136, 669);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
