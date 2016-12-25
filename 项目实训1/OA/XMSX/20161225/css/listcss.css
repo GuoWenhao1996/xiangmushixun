@@ -6,10 +6,14 @@ header{
     position: relative;
     width: 100%;
     min-width: 600px;
+    background-color: rgba(186, 230, 244, 0.76); /*背景颜色*/
 }
 header ul li{
     margin-left: 20px;
     margin-top: 20px;
+}
+header ul li a{
+    cursor: pointer !important;
 }
 section{
     position: relative;

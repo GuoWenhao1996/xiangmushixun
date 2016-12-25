@@ -53,6 +53,7 @@
         #pageBody aside ul li {
             list-style-type: none;
             height: 30px;
+            padding-bottom: 1px;
         }
 
         #pageBody aside ul li a {
@@ -143,6 +144,8 @@
             border-top-right-radius: 5px;
         }
     </style>
+    <!--JS脚本-->
+    <script src="js/listjs.js"></script>
 </head>
 <body>
 <header>
@@ -154,15 +157,15 @@
     <aside>
         <!--无序列表，用于制作导航菜单-->
         <ul>
-            <li><a href="#" class="active">系统管理</a></li>
-            <li><a href="pages/user/userlist.html" target="mainFrame">用户管理</a></li>
-            <li><a href="pages/dept/deptlist.html" target="mainFrame">部门管理</a></li>
-            <li><a href="pages/posit/positlist.html" target="mainFrame">职位管理</a></li>
-            <li><a href="pages/role/rolelist.html" target="mainFrame">角色管理</a></li>
-            <li><a href="#" class="active">邮件管理</a></li>
-            <li><a href="#" target="mainFrame">发送邮件</a></li>
-            <li><a href="#" target="mainFrame">未读邮件</a></li>
-            <li><a href="#" target="mainFrame">所有邮件</a></li>
+            <li id="001" onclick="openOrCloseMenu(this)"><a href="#" class="active">系统管理</a></li>
+            <li name="001"><a href="pages/user/userlist.html" target="mainFrame">用户管理</a></li>
+            <li name="001"><a href="pages/dept/deptlist.html" target="mainFrame">部门管理</a></li>
+            <li name="001"><a href="pages/posit/positlist.html" target="mainFrame">职位管理</a></li>
+            <li name="001"><a href="pages/role/rolelist.html" target="mainFrame">角色管理</a></li>
+            <li id="002" onclick="openOrCloseMenu(this)"><a href="#" class="active">邮件管理</a></li>
+            <li name="002"><a href="http://mail.163.com/" target="mainFrame">发送邮件</a></li>
+            <li name="002"><a href="http://mail.163.com/" target="mainFrame">未读邮件</a></li>
+            <li name="002"><a href="http://mail.163.com/" target="mainFrame">所有邮件</a></li>
         </ul>
     </aside>
     <section>
