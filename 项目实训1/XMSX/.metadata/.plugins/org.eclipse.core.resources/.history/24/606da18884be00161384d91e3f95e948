@@ -1,8 +1,0 @@
-package com.null_6th_gwh.ball.view;
-
-import javax.swing.JFrame;
-
-public class GameFrame extends JFrame{
-	
-
-}

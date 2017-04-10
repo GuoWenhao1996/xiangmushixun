@@ -1,5 +1,0 @@
-package view.copy;
-
-public class GameFrame extends JFrame {
-
-}
